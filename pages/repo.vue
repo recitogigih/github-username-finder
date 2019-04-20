@@ -48,18 +48,28 @@
         No repos yet
       </div>
     </div>
+    <div v-if="loadedUser == false || loadedRepo == false">
+      <loading />
+    </div>
   </div>
 </template>
 <script>
+  import loading from '../components/loading.vue';
   export default {
+    components: {
+      loading,
+    },
     data() {
       return {
         users: '',
         repos: '',
         username_query: this.$route.query.username,
+        loadedUser: false,
+        loadedRepo: false,
       }
     },
     mounted() {
+      this.doLoading();
       if (this.username_query != null) {
         this.getData();
       }
@@ -70,7 +80,7 @@
         this.$axios.get('https://api.github.com/users/' + this.username)
           .then(response => {
             this.users = response.data;
-
+            this.loadedUser = true;
           })
           .catch(e => {
             console.log(e)
@@ -79,11 +89,22 @@
         this.$axios.get('https://api.github.com/users/' + this.username + '/repos?per_page=100')
           .then(response => {
             this.repos = response.data;
-
+            this.loadedRepo = true;
           })
           .catch(e => {
             console.log(e)
           });
+
+        this.doLoading();
+      },
+
+      doLoading() {
+        this.loadedUser = false;
+        this.loadedRepo = false;
+        setTimeout(() => {
+          this.loadedUser = true;
+          this.loadedRepo = true;
+        }, 1000)
       },
     },
   }
