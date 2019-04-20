@@ -4,7 +4,7 @@
       <label class="label">Github's Username</label>
       <div class="field has-addons">
         <div class="control">
-          <input class="input" v-model="username" placeholder="">
+          <input class="input" v-on:keyup.enter="getData" v-model="username" placeholder="">
         </div>
         <div class="control">
           <nuxt-link :to="'repo?username='+ username" class="button is-info">
