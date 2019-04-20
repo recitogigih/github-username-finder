@@ -1,0 +1,17 @@
+# taiger
+
+> micro project
+
+
+## Build Setup
+
+1. install dependencies
+   $ yarn install
+
+2. build for production and launch server
+   $ yarn run build
+   $ yarn start
+
+
+
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org)
