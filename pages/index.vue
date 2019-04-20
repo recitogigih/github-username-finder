@@ -29,7 +29,7 @@
         console.log(event.key);
         if (event.key == "Enter") {
           console.log("enter key was pressed!");
-          this.$router.push('?username=' + this.username)
+          this.$router.push('/repo?username=' + this.username)
         }
       }
     }
