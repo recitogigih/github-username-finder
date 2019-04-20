@@ -26,15 +26,36 @@
       <div v-else>
         username doesn't exist
       </div>
+      <table v-if="repos.length > 0" class="table is-striped is-narrow is-hoverable is-fullwidth">
+        <tr>
+          <th>No.</th>
+          <th>Repo Name</th>
+          <th>Forked</th>
+          <th>Issue</th>
+          <th>Action</th>
+        </tr>
+        <tr v-for="(repo, key) in repos" :key="key">
+          <td> {{key+1}} </td>
+          <td> {{repo.name}}</td>
+          <td> {{repo.forks}}</td>
+          <td> {{repo.open_issues}}</td>
+          <td>
+            <a class="button is-primary is-small">Readme</a>
+          </td>
+        </tr>
+      </table>
+      <div v-else>
+        No repos yet
+      </div>
     </div>
   </div>
 </template>
 <script>
-
   export default {
     data() {
       return {
         users: '',
+        repos: '',
         username_query: this.$route.query.username,
       }
     },
@@ -45,15 +66,24 @@
     },
     methods: {
       getData() {
-         this.username = this.username_query;
+        this.username = this.username_query;
         this.$axios.get('https://api.github.com/users/' + this.username)
           .then(response => {
             this.users = response.data;
-            this.loadedRepo = true;
+
           })
           .catch(e => {
             console.log(e)
-          });     
+          });
+
+        this.$axios.get('https://api.github.com/users/' + this.username + '/repos?per_page=100')
+          .then(response => {
+            this.repos = response.data;
+
+          })
+          .catch(e => {
+            console.log(e)
+          });
       },
     },
   }
