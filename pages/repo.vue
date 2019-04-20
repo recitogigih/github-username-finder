@@ -40,7 +40,8 @@
           <td> {{repo.forks}}</td>
           <td> {{repo.open_issues}}</td>
           <td>
-            <a class="button is-primary is-small">Readme</a>
+              <a :href="'https://raw.githubusercontent.com/'+ users.login + '/' + repo.name + '/master/README.md'"
+              class="button is-primary is-small" target='_blank'>Readme</a>
           </td>
         </tr>
       </table>
